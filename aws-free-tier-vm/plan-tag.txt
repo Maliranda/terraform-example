@@ -1,0 +1,38 @@
+data.aws_vpc.default: Reading...
+aws_key_pair.this: Refreshing state... [id=tf-student-demo-key]
+data.aws_ami.ubuntu: Reading...
+data.aws_ami.ubuntu: Read complete after 0s [id=ami-0c228cd2b65888e1b]
+data.aws_vpc.default: Read complete after 1s [id=vpc-0286a12fe5bd842e2]
+data.aws_subnets.default: Reading...
+aws_security_group.vm: Refreshing state... [id=sg-0cf78f0e60c5ac1aa]
+data.aws_subnets.default: Read complete after 0s [id=eu-central-1]
+aws_instance.vm: Refreshing state... [id=i-00b10e5c6a087001e]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_instance.vm will be updated in-place
+  ~ resource "aws_instance" "vm" {
+        id                                   = "i-00b10e5c6a087001e"
+      ~ tags                                 = {
+            "Name"  = "tf-student-demo-vm"
+          + "Owner" = "liza"
+        }
+      ~ tags_all                             = {
+          + "Owner"     = "liza"
+            # (3 unchanged elements hidden)
+        }
+        # (40 unchanged attributes hidden)
+
+        # (9 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+
+─────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.

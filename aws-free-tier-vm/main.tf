@@ -86,6 +86,7 @@ resource "aws_instance" "vm" {
   vpc_security_group_ids      = [aws_security_group.vm.id]
   key_name                    = aws_key_pair.this.key_name
   associate_public_ip_address = true
+  user_data_replace_on_change = true
 
   # Free tier includes up to 30 GB of gp3 storage. 8 GB is plenty here.
   root_block_device {
@@ -101,7 +102,7 @@ resource "aws_instance" "vm" {
     apt-get update -y
     apt-get install -y nginx
     cat > /var/www/html/index.html <<HTML
-    <h1>Hello from Terraform!</h1>
+    <h1>Hello from Liza!</h1>
     <p>Instance: $(hostname)</p>
     HTML
     systemctl enable --now nginx
@@ -114,5 +115,6 @@ resource "aws_instance" "vm" {
 
   tags = {
     Name = "${var.project_name}-vm"
+    Owner = "liza"	
   }
 }

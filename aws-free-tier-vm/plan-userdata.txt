@@ -1,0 +1,158 @@
+data.aws_vpc.default: Reading...
+data.aws_ami.ubuntu: Reading...
+aws_key_pair.this: Refreshing state... [id=tf-student-demo-key]
+data.aws_ami.ubuntu: Read complete after 2s [id=ami-0c228cd2b65888e1b]
+data.aws_vpc.default: Read complete after 2s [id=vpc-0286a12fe5bd842e2]
+data.aws_subnets.default: Reading...
+aws_security_group.vm: Refreshing state... [id=sg-0cf78f0e60c5ac1aa]
+data.aws_subnets.default: Read complete after 1s [id=eu-central-1]
+aws_instance.vm: Refreshing state... [id=i-00b10e5c6a087001e]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # aws_instance.vm must be replaced
+-/+ resource "aws_instance" "vm" {
+      ~ arn                                  = "arn:aws:ec2:eu-central-1:357059693553:instance/i-00b10e5c6a087001e" -> (known after apply)
+      ~ availability_zone                    = "eu-central-1a" -> (known after apply)
+      ~ disable_api_stop                     = false -> (known after apply)
+      ~ disable_api_termination              = false -> (known after apply)
+      ~ ebs_optimized                        = false -> (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      - hibernation                          = false -> null
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      ~ id                                   = "i-00b10e5c6a087001e" -> (known after apply)
+      ~ instance_initiated_shutdown_behavior = "stop" -> (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      ~ instance_state                       = "running" -> (known after apply)
+      ~ ipv6_address_count                   = 0 -> (known after apply)
+      ~ ipv6_addresses                       = [] -> (known after apply)
+      ~ monitoring                           = false -> (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_group_id                   = (known after apply)
+      ~ placement_partition_number           = 0 -> (known after apply)
+      ~ primary_network_interface_id         = "eni-0267ae195b67e1d81" -> (known after apply)
+      ~ private_dns                          = "ip-172-31-22-34.eu-central-1.compute.internal" -> (known after apply)
+      ~ private_ip                           = "172.31.22.34" -> (known after apply)
+      ~ public_dns                           = "ec2-54-93-103-243.eu-central-1.compute.amazonaws.com" -> (known after apply)
+      ~ public_ip                            = "54.93.103.243" -> (known after apply)
+      ~ secondary_private_ips                = [] -> (known after apply)
+      ~ security_groups                      = [
+          - "tf-student-demo-sg",
+        ] -> (known after apply)
+      + spot_instance_request_id             = (known after apply)
+      ~ tags                                 = {
+            "Name"  = "tf-student-demo-vm"
+          + "Owner" = "liza"
+        }
+      ~ tags_all                             = {
+          + "Owner"     = "liza"
+            # (3 unchanged elements hidden)
+        }
+      ~ tenancy                              = "default" -> (known after apply)
+      ~ user_data                            = <<-EOT # forces replacement
+            #!/bin/bash
+            set -eux
+            apt-get update -y
+            apt-get install -y nginx
+            cat > /var/www/html/index.html <<HTML
+          - <h1>Hello from Terraform!</h1>
+          + <h1>Hello from Liza!</h1>
+            <p>Instance: $(hostname)</p>
+            HTML
+            systemctl enable --now nginx
+        EOT
+      + user_data_base64                     = (known after apply)
+      ~ user_data_replace_on_change          = false -> true
+        # (10 unchanged attributes hidden)
+
+      ~ capacity_reservation_specification (known after apply)
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "open" -> null
+        }
+
+      ~ cpu_options (known after apply)
+      - cpu_options {
+          - core_count            = 1 -> null
+          - threads_per_core      = 2 -> null
+            # (2 unchanged attributes hidden)
+        }
+
+      - credit_specification {
+          - cpu_credits = "unlimited" -> null
+        }
+
+      ~ ebs_block_device (known after apply)
+
+      ~ enclave_options (known after apply)
+      - enclave_options {
+          - enabled = false -> null
+        }
+
+      ~ ephemeral_block_device (known after apply)
+
+      ~ instance_market_options (known after apply)
+
+      ~ maintenance_options (known after apply)
+      - maintenance_options {
+          - auto_recovery = "default" -> null
+        }
+
+      ~ metadata_options {
+          ~ http_put_response_hop_limit = 2 -> (known after apply)
+          ~ instance_metadata_tags      = "disabled" -> (known after apply)
+            # (3 unchanged attributes hidden)
+        }
+
+      ~ network_interface (known after apply)
+
+      ~ primary_network_interface (known after apply)
+      - primary_network_interface {
+          - delete_on_termination = true -> null
+          - network_interface_id  = "eni-0267ae195b67e1d81" -> null
+        }
+
+      ~ private_dns_name_options (known after apply)
+      - private_dns_name_options {
+          - enable_resource_name_dns_a_record    = false -> null
+          - enable_resource_name_dns_aaaa_record = false -> null
+          - hostname_type                        = "ip-name" -> null
+        }
+
+      ~ root_block_device {
+          ~ device_name           = "/dev/sda1" -> (known after apply)
+          ~ encrypted             = false -> (known after apply)
+          ~ iops                  = 3000 -> (known after apply)
+          + kms_key_id            = (known after apply)
+          - tags                  = {} -> null
+          ~ tags_all              = {
+              - "ManagedBy" = "terraform"
+              - "Project"   = "tf-student-demo"
+            } -> (known after apply)
+          ~ throughput            = 125 -> (known after apply)
+          ~ volume_id             = "vol-00e09818bb546e13c" -> (known after apply)
+            # (3 unchanged attributes hidden)
+        }
+
+      ~ secondary_network_interface (known after apply)
+    }
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+
+Changes to Outputs:
+  ~ instance_id = "i-00b10e5c6a087001e" -> (known after apply)
+  ~ public_ip   = "54.93.103.243" -> (known after apply)
+  ~ ssh_command = "ssh -i ~/.ssh/id_ed25519 ubuntu@54.93.103.243" -> (known after apply)
+  ~ web_url     = "http://54.93.103.243" -> (known after apply)
+
+─────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't
+guarantee to take exactly these actions if you run "terraform apply" now.
